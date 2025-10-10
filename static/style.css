@@ -1,0 +1,398 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8fafc;
+    margin: 0;
+    color: #1e293b;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    padding: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2563eb;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #334155;
+    font-weight: 500;
+}
+
+.profile {
+    color: #2563eb;
+    font-weight: 600;
+}
+
+/* Hero */
+.hero {
+    text-align: center;
+    padding: 10px;
+}
+
+.hero h1 {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.search-box {
+    margin: 1.5rem 0;
+}
+
+.search-box input {
+    padding: 0.7rem;
+    width: 300px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+}
+
+.search-box button {
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    padding: 0.7rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* Dashboard */
+.dashboard {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.matches, .sidebar {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+}
+
+.matches {
+    width: 60%;
+}
+
+.sidebar {
+    width: 25%;
+}
+
+.mentor-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 0.8rem 0;
+}
+
+.mentor-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.mentor-info img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+
+.rating {
+    font-weight: 600;
+    color: #2563eb;
+}
+
+/* Badges */
+.badge-list {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.badge-item {
+    text-align: center;
+}
+
+.badge-item span {
+    font-size: 2rem;
+    display: block;
+}
+
+
+
+
+:root {
+  --accent: #2563eb;
+  --bg: #0f172a;
+  --muted: #94a3b8;
+}
+
+#assist-root {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  pointer-events: none; /* prevent root from blocking clicks */
+}
+
+/* Toggle Button */
+#assist-toggle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  background: var(--accent);
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(16, 24, 40, 0.15);
+  pointer-events: auto;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              bottom 0.4s ease,
+              right 0.4s ease;
+  z-index: 10;
+}
+
+/* Chat Box */
+#assist-box {
+  width: 340px;
+  height: 460px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(2, 6, 23, 0.2);
+  overflow: hidden;
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  transform: scale(0.95) translateY(20px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.4s ease,
+              bottom 0.4s ease,
+              right 0.4s ease;
+  z-index: 9;
+}
+
+#assist-box.open {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+  bottom: 120px;  /* slide slightly up */
+  right: 40px;    /* slide slightly right */
+}
+
+/* Header */
+.assist-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px;
+  border-bottom: 1px solid #eef2ff;
+}
+
+.assist-sub {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Messages */
+.assist-messages {
+  flex: 1;
+  padding: 12px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: linear-gradient(180deg, #fbfdff, #ffffff);
+}
+
+.msg-item {
+  max-width: 78%;
+  padding: 8px 12px;
+  border-radius: 10px;
+  line-height: 1.3;
+}
+
+.msg-item.user-msg {
+  align-self: flex-end;
+  background: #eef2ff;
+  color: #082145;
+}
+
+.msg-item.bot-msg {
+  align-self: flex-start;
+  background: #f1f5f9;
+  color: #0b1220;
+}
+
+/* Input Area */
+.assist-form {
+  display: flex;
+  padding: 8px;
+  border-top: 1px solid #eef2ff;
+}
+
+#assist-input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #e6eef7;
+  outline: none;
+}
+
+#assist-send {
+  margin-left: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  background: var(--accent);
+  color: white;
+  cursor: pointer;
+}
+
+/* Status Line */
+.assist-status {
+  font-size: 12px;
+  color: var(--muted);
+  padding: 6px 12px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 420px) {
+  #assist-box {
+    width: 92vw;
+    height: 60vh;
+  }
+}
+
+
+
+/* assistant suggestion box */
+
+/* Tooltip container */
+#assist-root {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  pointer-events: none;
+}
+
+/* Tooltip text */
+#assist-tooltip {
+  position: absolute;
+  bottom: 70px; /* above the toggle */
+  right: 70px;  /* start from right of toggle */
+  background: var(--accent);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(20px); /* slide from right to left */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 15;
+}
+
+/* Show tooltip on hover */
+#assist-toggle:hover + #assist-tooltip {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+
+
+
+
+/* profile sign in and sign up */
+
+.auth {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.signin-btn {
+    background-color: transparent;
+    color: #2563eb;
+    border: 1px solid #2563eb;
+}
+
+.signup-btn {
+    background-color: #2563eb;
+    color: white;
+}
+
+.profile-dropdown {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 5px;
+}
+
+.profile-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 42px;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+    flex-direction: column;
+    min-width: 140px;
+    z-index: 10;
+}
+
+.dropdown-menu a {
+    padding: 10px 15px;
+    color: #333;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f0f0f0;
+}
