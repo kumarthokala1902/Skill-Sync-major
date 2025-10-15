@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillSync | AI Peer Learning</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+
+<body>
+    <!-- ======= NAVBAR ======= -->
+    <nav class="navbar">
+        <div class="logo" id="logo">
+            <h3 class="main-b">SkillSync</h3>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Explore</a></li>
+            <li><a href="/mentors">Mentors</a></li>
+            <li><a href="#">Community</a></li>
+            <li><a href="#">Dashboard</a></li>
+        </ul>
+
+        <!-- ======= USER AUTH SECTION ======= -->
+        <div class="auth">
+
+            <!-- Profile dropdown after login -->
+            <div class="profile-dropdown" style="display:none;">
+                <img src="" alt="Profile" class="profile-icon">
+                <span class="username">Username</span>
+                <div class="dropdown-menu">
+                    <a href="#">Dashboard</a>
+                    <a href="#">Settings</a>
+                    <a href="#" id="logout-btn">Log Out</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="auth">
+    {% if user %}
+        <div class="profile-dropdown">
+            <img src="https://randomuser.me/api/portraits/men/1.jpg" class="profile-icon">
+            <span class="username">{{ user.firstName }}</span>
+            <div class="dropdown-menu">
+                <a href="#">Dashboard</a>
+                <a href="/logout">Log Out</a>
+            </div>
+        </div>
+    {% else %}
+        <button class="btn signin-btn" onclick="window.location.href='/login'">Sign In</button>
+        <button class="btn signup-btn" onclick="window.location.href='/login'">Sign Up</button>
+    {% endif %}
+</div>
+
+
+    </nav>
+
+    <!-- ======= HERO SECTION ======= -->
+    <section class="hero">
+        <h1>AI-Powered Peer Learning & Micro-Mentorship</h1>
+        <div class="search-box">
+            <input type="text" placeholder="Search for skills, mentors, or topics...">
+            <button>Get Started</button>
+        </div>
+        <p class="subtext">Join a community of 10,000+ learners and mentors</p>
+    </section>
+
+    <!-- ======= DASHBOARD SECTION ======= -->
+    <section class="dashboard">
+        <div class="matches">
+            <div class="match">
+                <h2>Matches for You</h2>
+            </div>
+            <div id="mentor-list">
+                {% for mentor in mentors %}
+                <div class="mentor-card">
+                    <div class="mentor-info">
+                        <img src="https://randomuser.me/api/portraits/men/{{ loop.index }}.jpg" alt="{{ mentor.name }}">
+                        <div>
+                            <h3>{{ mentor.name }}</h3>
+                            <p>{{ mentor.role }}</p>
+                        </div>
+                    </div>
+                    <div class="rating">⚡ {{ mentor.rating }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <div class="badges">
+                <h3>Earned Badges</h3>
+                <div class="badge-list">
+                    {% for badge in badges %}
+                    <div class="badge-item">
+                        <span>{{ badge.icon }}</span>
+                        <p>{{ badge.name }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="streak">
+                <h3>Streak</h3>
+                <p>Keep going! 🔥</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======= PROFILE FORM SECTION ======= -->
+    <div id="profile-form-container" style="display:none;">
+        <h2>Fill Your Profile</h2>
+        <input type="text" id="profile-name" placeholder="Full Name">
+        <input type="text" id="profile-expertise" placeholder="Expertise (e.g., Frontend, React.js)">
+        <input type="text" id="profile-experience" placeholder="Experience (e.g., 5 years)">
+        <input type="text" id="profile-courses" placeholder="Courses Mentored">
+        <input type="text" id="profile-availability" placeholder="Availability (e.g., Mon-Wed 3-6 PM)">
+        <button id="profile-submit">Save Profile</button>
+    </div>
+
+    <!-- ======= PROFILE DASHBOARD ======= -->
+    <section id="dashboard-profile" style="display:none;">
+        <h2>SkillSync Mentor Profiles</h2>
+        <div class="mentor-profile" id="mentor-profile-display"></div>
+    </section>
+
+    <!-- ======= HELP ASSISTANT WIDGET ======= -->
+    <div id="assist-root">
+        <button id="assist-toggle" aria-label="Open help">🤖</button>
+
+        <!-- Tooltip suggestion -->
+        <div id="assist-tooltip">Do you need any assistance?</div>
+
+        <div id="assist-box" aria-hidden="true">
+            <div class="assist-header">
+                <div>
+                    <strong>SkillSync Assistant</strong>
+                    <div class="assist-sub">Ask for help — quick tips, nav, or troubleshooting</div>
+                </div>
+                <button id="assist-close">✕</button>
+            </div>
+
+            <div id="assist-messages" class="assist-messages" role="log" aria-live="polite"></div>
+
+            <form id="assist-form" class="assist-form">
+                <input id="assist-input" type="text" placeholder="Ask me about SkillSync..." autocomplete="off" />
+                <button type="submit" id="assist-send">Send</button>
+            </form>
+
+            <div id="assist-status" class="assist-status"></div>
+        </div>
+    </div>
+
+    <!-- ======= SCRIPTS ======= -->
+    <script defer src="static/script.js"></script>
+</body>
+</html>

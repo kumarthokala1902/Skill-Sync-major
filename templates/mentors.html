@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SkillSync | Mentors</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo" id="logo">
+            <h3 class="main-b">SkillSync</h3>
+        </div>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/mentors" class="active">Mentors</a></li>
+        </ul>
+    </nav>
+
+    <section class="mentors-section">
+        <h1>Available Mentors</h1>
+        <div class="mentor-container">
+            {% for mentor in mentorss %}
+            <div class="mentor-card">
+                <img src="https://randomuser.me/api/portraits/men/{{ mentor.id }}.jpg" alt="{{ mentor.name }}">
+                <h3>{{ mentor.name }}</h3>
+                <p><strong>Skill:</strong> {{ mentor.skill }}</p>
+                <p><strong>Experience:</strong> {{ mentor.experience }}</p>
+                <p><strong>Rating:</strong> ⭐ {{ mentor.rating }}</p>
+                <button class="book-btn" data-id="{{ mentor.id }}">Book Session</button>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const bookButtons = document.querySelectorAll(".book-btn");
+            bookButtons.forEach(btn => {
+                btn.addEventListener("click", async () => {
+                    const mentorId = btn.dataset.id;
+                    const res = await fetch(`/book/${mentorId}`, {
+                        method: "POST"
+                    });
+                    const data = await res.json();
+                    alert(data.message);
+                });
+            });
+
+            // Logo redirect
+            document.getElementById("logo").addEventListener("click", () => {
+                window.location.href = "/";
+            });
+        });
+    </script>
+
+    <style>
+        .mentors-section {
+            text-align: center;
+            padding: 40px;
+        }
+        .mentor-container {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+        .mentor-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            width: 250px;
+            padding: 20px;
+            transition: transform 0.2s ease;
+        }
+        .mentor-card:hover {
+            transform: translateY(-5px);
+        }
+        .mentor-card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .book-btn {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .book-btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</body>
+</html>

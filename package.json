@@ -1,0 +1,26 @@
+{
+  "name": "skillsync-ai-proj",
+  "version": "1.0.0",
+  "description": "this is major project which includes both the development and the deployment.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kumarthokala1902/Skill-Sync-major.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kumarthokala1902/Skill-Sync-major/issues"
+  },
+  "homepage": "https://github.com/kumarthokala1902/Skill-Sync-major#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "fs": "^0.0.1-security"
+  }
+}

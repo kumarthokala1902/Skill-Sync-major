@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SkillSync | Login / Sign Up</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body {
+      background: linear-gradient(135deg, #4a90e2, #007aff);
+      font-family: "Poppins", sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+    }
+
+    .auth-container {
+      background: #fff;
+      width: 400px;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      padding: 2rem;
+      text-align: center;
+      transition: 0.3s ease;
+    }
+
+    .auth-container h2 {
+      margin-bottom: 1rem;
+      color: #222;
+    }
+
+    .input-group {
+      margin-bottom: 1rem;
+      text-align: left;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: 600;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    .role-selection {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .role-selection label {
+      font-weight: 600;
+    }
+
+    .oauth-buttons {
+      margin: 1rem 0;
+    }
+
+    .oauth-btn {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      color: white;
+      font-size: 0.95rem;
+      margin-top: 0.5rem;
+    }
+
+    .oauth-btn.google {
+      background-color: #db4437;
+    }
+
+    .oauth-btn.linkedin {
+      background-color: #0077b5;
+    }
+
+    .switch-auth {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .switch-auth span {
+      color: #007aff;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    #auth-btn {
+      background: #007aff;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      width: 100%;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+
+    #auth-btn:hover {
+      background: #005fc1;
+    }
+
+    #msg {
+      margin-top: 0.8rem;
+      color: red;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-container">
+    <h2 id="auth-title">Sign In</h2>
+
+    <div class="role-selection">
+      <label><input type="radio" name="role" value="Mentor" checked> Mentor</label>
+      <label><input type="radio" name="role" value="Learner"> Learner</label>
+    </div>
+
+    <div id="auth-form">
+      <!-- Sign In Form -->
+      <div id="signin-fields">
+        <div class="input-group">
+          <label>Email or Username</label>
+          <input type="text" id="signin-user" placeholder="Enter email or username">
+        </div>
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" id="signin-pass" placeholder="Enter password">
+        </div>
+      </div>
+
+      <!-- Sign Up Form (Hidden by default) -->
+      <div id="signup-fields" style="display:none;">
+        <div class="input-group">
+          <label>First Name</label>
+          <input type="text" id="first-name" placeholder="First Name">
+        </div>
+        <div class="input-group">
+          <label>Last Name</label>
+          <input type="text" id="last-name" placeholder="Last Name">
+        </div>
+        <div class="input-group">
+          <label>Username</label>
+          <input type="text" id="username" placeholder="Choose a username">
+        </div>
+        <div class="input-group">
+          <label>Email</label>
+          <input type="email" id="email" placeholder="Enter your email">
+        </div>
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" id="password" placeholder="Enter password">
+        </div>
+      </div>
+
+      <button id="auth-btn">Sign In</button>
+      <p id="msg"></p>
+
+      <div class="oauth-buttons">
+        <button class="oauth-btn google">Continue with Google</button>
+        <button class="oauth-btn linkedin">Continue with LinkedIn</button>
+      </div>
+
+      <p class="switch-auth">
+        Don't have an account?
+        <span id="switch-link">Sign Up</span>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const switchLink = document.getElementById('switch-link');
+    const authTitle = document.getElementById('auth-title');
+    const signinFields = document.getElementById('signin-fields');
+    const signupFields = document.getElementById('signup-fields');
+    const authBtn = document.getElementById('auth-btn');
+    const msg = document.getElementById('msg');
+
+    let mode = 'signin';
+
+    switchLink.addEventListener('click', () => {
+      if(mode === 'signin') {
+        mode = 'signup';
+        authTitle.textContent = 'Sign Up';
+        signinFields.style.display = 'none';
+        signupFields.style.display = 'block';
+        authBtn.textContent = 'Sign Up';
+        switchLink.textContent = 'Sign In';
+      } else {
+        mode = 'signin';
+        authTitle.textContent = 'Sign In';
+        signinFields.style.display = 'block';
+        signupFields.style.display = 'none';
+        authBtn.textContent = 'Sign In';
+        switchLink.textContent = 'Sign Up';
+      }
+      msg.textContent = '';
+    });
+
+    authBtn.addEventListener('click', async () => {
+      msg.textContent = '';
+      const role = document.querySelector('input[name="role"]:checked').value;
+
+      if(mode === 'signin') {
+        const user = document.getElementById('signin-user').value.trim();
+        const pass = document.getElementById('signin-pass').value.trim();
+
+        if(!user || !pass) {
+          msg.textContent = "Please fill all fields.";
+          return;
+        }
+
+        const res = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ user, pass, role })
+        });
+        const data = await res.json();
+
+        if(res.ok){
+          localStorage.setItem('user', JSON.stringify(data.user));
+          window.location.href = '/';
+        } else {
+          msg.textContent = data.error || 'Invalid credentials.';
+        }
+
+      } else {
+        const first = document.getElementById('first-name').value.trim();
+        const last = document.getElementById('last-name').value.trim();
+        const username = document.getElementById('username').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value.trim();
+
+        if(!first || !last || !username || !email || !password){
+          msg.textContent = "Please fill all fields.";
+          return;
+        }
+
+        const res = await fetch('/api/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ first, last, username, email, password, role })
+        });
+        const data = await res.json();
+
+        if(res.ok){
+          alert('Account created! Please log in.');
+          switchLink.click();
+        } else {
+          msg.textContent = data.error || 'Signup failed.';
+        }
+      }
+    });
+
+    document.querySelector('.google').addEventListener('click', () => {
+      alert("Google login coming soon 🚀");
+    });
+
+    document.querySelector('.linkedin').addEventListener('click', () => {
+      alert("LinkedIn login coming soon 🔗");
+    });
+  </script>
+</body>
+</html>
