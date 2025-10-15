@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
         addMsg(data?.reply || "Hmm, I didn't get that — try again or ask differently.", 'bot');
       } catch(err){
         console.error(err);
-        addMsg('Network or server error. Try again later.', 'bot');
+        addMsg('Sorry for inconvenience the backend server is still in development phase. Nooo worries it will be getting ready soon.', 'bot');
       } finally { setStatus(''); }
     });
   })();
