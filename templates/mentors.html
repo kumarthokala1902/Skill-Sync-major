@@ -1,98 +1,286 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>SkillSync | Mentors</title>
-    <link rel="stylesheet" href="/static/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SkillSync Mentorship</title>
+  <style>
+    /* ======= GLOBAL STYLES ======= */
+    body {
+      font-family: "Inter", sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9fafc;
+      color: #1e1e1e;
+      padding-top: 90px; /* space for fixed navbar */
+    }
+
+    /* ======= FIXED NAVBAR ======= */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 9999;
+      background: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 50px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .logo h3 { margin: 0; }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: #222;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: #0078ff; }
+
+    .btn {
+    position: relative;      /* enables left/right adjustments */
+    left: -80px;             /* move 30px to the left */
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 900;
+    transition: all 0.3s;
+}
+
+
+    .btn:hover{ transform: translateY(-2px); }
+
+    .new-btn{
+    position: relative;      /* enables left/right adjustments */
+    left: 0px;             /* move 30px to the left */
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 900;
+    transition: all 0.3s;
+    }
+
+    .new-btn:hover{ transform: translateY(-2px); }
+
+
+
+    .profile-dropdown {
+    position: relative;
+    display: flex;
+     align-items: center;
+      gap: 10px;
+      cursor: pointer;
+     }
+
+    .profile-dropdown .dropdown-menu {
+      display: none;
+      position: flex;
+      top: 20px;
+      right: 0;
+      background: black;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .profile-dropdown:hover .dropdown-menu { display: block; }
+    .profile-dropdown a { display: block; padding: 10px 20px; color: #333; text-decoration: none; }
+    .profile-dropdown a:hover { background: #f0f0f0; }
+
+    /* ======= HERO / MENTORSHIP SECTION ======= */
+    .mentorship-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 60px 80px;
+      background: linear-gradient(135deg, #ffffff, #f2f8ff);
+    }
+    .mentor-text { flex: 1; padding-right: 40px; }
+    .mentor-text h1 { font-size: 2.5rem; margin-bottom: 15px; color: #222; }
+    .mentor-text p { font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px; color: #555; }
+    .mentor-buttons { display: flex; gap: 20px; }
+    .mentor-buttons .btn { background-color: #007bff; color: #fff; }
+    .mentor-buttons .btn:nth-child(2) { background-color: #00b894; }
+    .mentor-buttons .btn:hover { transform: translateY(-3px); }
+    .mentor-image { flex: 1; text-align: right; }
+    .mentor-image img { width: 590px; border-radius: 20px; }
+
+    /* ======= Trending Domains ======= */
+    .trending-domains { text-align: center; margin-top: 80px; }
+    .trending-domains h2 { font-size: 2rem; margin-bottom: 40px; }
+    .domains-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 25px;
+      padding: 0 100px;
+    }
+    .domain-card {
+      background-color: #fff; border-radius: 15px; padding: 25px;
+      font-weight: 600; font-size: 1rem; text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+    }
+    .domain-card:hover { background-color: #007bff; color: #fff; transform: scale(1.05); }
+
+    /* ======= Mentors Section ======= */
+    .mentors-section { margin-top: 80px; text-align: center; }
+    .mentors-section h2 { font-size: 2rem; margin-bottom: 30px; }
+    .company-logos { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; padding: 0 50px; }
+    .company-logo { background-color: #fff; border-radius: 15px; padding: 15px 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); font-weight: 700; font-size: 1.1rem; transition: all 0.3s ease; }
+    .company-logo:hover { background-color: #007bff; color: #fff; transform: scale(1.05); }
+
+    /* ======= FAQ Section ======= */
+    .faq-section { margin-top: 100px; padding: 0 100px 80px; }
+    .faq-section h2 { text-align: center; font-size: 2rem; margin-bottom: 30px; }
+    .faq-item { background-color: #fff; padding: 20px 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); margin-bottom: 15px; transition: all 0.3s ease; }
+    .faq-item:hover { background-color: #f5f9ff; transform: translateY(-2px); }
+    .faq-item h3 { margin: 0; font-size: 1.2rem; color: #007bff; }
+    .faq-item p { margin-top: 10px; color: #555; line-height: 1.5; }
+    .view-all { text-align: center; margin-top: 20px; }
+    .view-all a { text-decoration: none; font-weight: 600; color: #007bff; }
+    .view-all a:hover { text-decoration: underline; }
+
+
+.animatioin {
+  position: relative;
+  background: linear-gradient(135deg, #007bff, #00d4ff);
+  color: #fff;
+  border: none;
+  padding: 12px 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+}
+
+    .animatioin:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 212, 255, 0.4);
+}
+
+/* Optional pulse animation */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(0, 212, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 212, 255, 0);
+  }
+}
+
+/* Add a looping glow animation */
+.animatioin:focus {
+  animation: pulse 1.5s infinite;
+  outline: none;
+}
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2563eb;
+}
+
+  </style>
 </head>
+
 <body>
-    <nav class="navbar">
-        <div class="logo" id="logo">
-            <h3 class="main-b">SkillSync</h3>
-        </div>
-        <ul class="nav-links">
-            <li><a href="/">Home</a></li>
-            <li><a href="/mentors" class="active">Mentors</a></li>
-        </ul>
-    </nav>
-
-    <section class="mentors-section">
-        <h1>Available Mentors</h1>
-        <div class="mentor-container">
-            {% for mentor in mentorss %}
-            <div class="mentor-card">
-                <img src="https://randomuser.me/api/portraits/men/{{ mentor.id }}.jpg" alt="{{ mentor.name }}">
-                <h3>{{ mentor.name }}</h3>
-                <p><strong>Skill:</strong> {{ mentor.skill }}</p>
-                <p><strong>Experience:</strong> {{ mentor.experience }}</p>
-                <p><strong>Rating:</strong> ⭐ {{ mentor.rating }}</p>
-                <button class="book-btn" data-id="{{ mentor.id }}">Book Session</button>
+  <!-- ======= NAVBAR (FIXED) ======= -->
+  <nav class="navbar">
+    <div class="logo" id="logo">
+      <h3 class="main-b">SkillSync</h3>
+    </div>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="#">Explore</a></li>
+      <li><a href="/mentors">Mentors</a></li>
+      <li><a href="#">Community</a></li>
+      <li><a href="#">Dashboard</a></li>
+      <li><a href="#">1:1-connect</a></li>
+    </ul>
+    <div class="auth">
+       {% if user %}
+        <div class="profile-dropdown">
+            <img src="https://randomuser.me/api/portraits/men/1.jpg" class="profile-icon">
+            <span class="username">{{ user.firstName }}</span>
+            <div class="dropdown-menu">
+                <a href="#">Dashboard</a>
+                <a href="/logout">Log Out</a>
             </div>
-            {% endfor %}
         </div>
-    </section>
+    {% else %}
+        <button class="btn animatioin signin-btn " onclick="window.location.href='/login'">Sign In</button>
+        <button class="btn animatioin signup-btn " onclick="window.location.href='/login'">Sign Up</button>
+    {% endif %}
+    </div>
+  </nav>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const bookButtons = document.querySelectorAll(".book-btn");
-            bookButtons.forEach(btn => {
-                btn.addEventListener("click", async () => {
-                    const mentorId = btn.dataset.id;
-                    const res = await fetch(`/book/${mentorId}`, {
-                        method: "POST"
-                    });
-                    const data = await res.json();
-                    alert(data.message);
-                });
-            });
+  <!-- ======= HERO / MENTORSHIP SECTION ======= -->
+  <section class="mentorship-section">
+    <div class="mentor-text">
+      <h1>Unlock Guidance</h1>
+      <p>Book a session with unstoppable mentors across domains & work together to build your career!</p>
+      <div class="mentor-buttons">
+       <button class="new-btn animatioin" onclick="window.location.href='/find-mentor'">Find a Mentor</button>
 
-            // Logo redirect
-            document.getElementById("logo").addEventListener("click", () => {
-                window.location.href = "/";
-            });
-        });
-    </script>
+        <button class="new-btn animatioin">Be a Mentor</button>
+      </div>
+    </div>
+    <div class="mentor-image">
+      <img src="https://d8it4huxumps7.cloudfront.net/uploads/images/682c504928dd5_mentorhomeimg.png?d=1000x600" alt="Mentorship banner">
+    </div>
+  </section>
 
-    <style>
-        .mentors-section {
-            text-align: center;
-            padding: 40px;
-        }
-        .mentor-container {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            flex-wrap: wrap;
-        }
-        .mentor-card {
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            width: 250px;
-            padding: 20px;
-            transition: transform 0.2s ease;
-        }
-        .mentor-card:hover {
-            transform: translateY(-5px);
-        }
-        .mentor-card img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        .book-btn {
-            margin-top: 10px;
-            padding: 10px 20px;
-            background: #007bff;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-        .book-btn:hover {
-            background: #0056b3;
-        }
-    </style>
+  <!-- ======= Trending Domains ======= -->
+  <section class="trending-domains">
+    <h2>Trending Domains</h2>
+    <div class="domains-grid">
+      <div class="domain-card">CV Review</div>
+      <div class="domain-card">MBA Preparation</div>
+      <div class="domain-card">Case Competition</div>
+      <div class="domain-card">Placement Support</div>
+      <div class="domain-card">Interview Preparation</div>
+      <div class="domain-card">Career Guidance</div>
+      <div class="domain-card">Personal Branding</div>
+      <div class="domain-card">Study Abroad</div>
+      <div class="domain-card">Coding & Software</div>
+    </div>
+  </section>
+
+  <!-- ======= Mentors from Top Companies ======= -->
+  <section class="mentors-section">
+    <h2>Mentors from Top Companies</h2>
+    <div class="company-logos">
+      <div class="company-logo">Amazon</div>
+      <div class="company-logo">Google</div>
+      <div class="company-logo">Meta</div>
+      <div class="company-logo">Microsoft</div>
+      <div class="company-logo">IBM</div>
+      <div class="company-logo">Flipkart</div>
+    </div>
+  </section>
+
+  <!-- ======= FAQ Section ======= -->
+  <section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item"><h3>What is SkillSync Mentorship?</h3></div>
+    <div class="faq-item"><h3>How does SkillSync Mentorship work?</h3><p>Sign up on SkillSync as a user to browse mentors and book sessions easily.</p></div>
+    <div class="faq-item"><h3>What is the goal of 1:1 mentorship sessions?</h3></div>
+    <div class="faq-item"><h3>Who is eligible to take 1:1 mentorship sessions?</h3></div>
+    <div class="faq-item"><h3>Who are SkillSync mentors?</h3></div>
+    <div class="view-all"><a href="#">View All</a></div>
+  </section>
 </body>
 </html>

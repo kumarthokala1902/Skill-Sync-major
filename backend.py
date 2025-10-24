@@ -113,6 +113,7 @@ def book_mentor(mentor_id):
     return jsonify({"status": "success", "message": f"Session booked with {mentor['name']}!"})
 
 
+
 # ---------- AI HELP ASSISTANT ----------
 @app.route('/api/assist', methods=['POST'])
 def assist():
@@ -129,6 +130,19 @@ def assist():
         response = "I'm your AI assistant 🤖. Ask me about mentors, skills, or platform features!"
 
     return jsonify({"reply": response})
+
+
+
+@app.route('/find-mentor')
+def find_mentor():
+    mentors = [
+        {"name": "Sourav Aggarwal", "role": "Program Manager @ Amazon", "rating": 4.7},
+        {"name": "Priyal Patel", "role": "Amazon PPO | IIM K Top 10%ile", "rating": 5.0},
+        {"name": "Nitin Sachdeva", "role": "Senior Developer @ Amazon", "rating": 5.0},
+        {"name": "Rachit Singh", "role": "Head Vendor Services @ Amazon", "rating": 4.7},
+    ]
+    return render_template("find_mentor.html", mentors=mentors)
+
 
 
 # ---------- MAIN ----------

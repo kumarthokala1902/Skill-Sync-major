@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Find a Mentor | SkillSync</title>
+  <link rel="stylesheet" href="static/style.css" />
+  <style>
+    /* ===== GLOBAL ===== */
+    body {
+      font-family: "Inter", sans-serif;
+      margin: 0;
+      padding: 120px 40px 60px; /* padding-top for navbar + filter bar */
+      background: #f9fafc;
+      color: #1e1e1e;
+    }
+
+    /* ===== NAVBAR ===== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #fff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 30px;
+    }
+
+    .logo h3 {
+      margin: 0;
+      color: #007bff;
+      font-weight: 800;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+
+    .nav-links li a {
+      text-decoration: none;
+      color: #222;
+      font-weight: 600;
+    }
+
+    .auth {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      transition: all 0.3s ease;
+    }
+
+    .signin-btn {
+      background: #007bff;
+      color: #fff;
+    }
+
+    .signup-btn {
+      background: #f4f4f4;
+      color: #007bff;
+      border: 1px solid #007bff;
+    }
+
+    .animatioin:hover {
+      transform: translateX(-30px);
+    }
+
+    /* ===== FILTER BAR ===== */
+    .filter-bar {
+      position: fixed;
+      top: 70px;
+      left: 0;
+      width: 100%;
+      background: #f8f8f8;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      padding: 15px 25px;
+      z-index: 900;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .filter-option {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      padding: 8px 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .filter-option:hover {
+      background-color: #e3f2fd;
+      border-color: #2196f3;
+    }
+
+    /* ===== PAGE CONTENT ===== */
+    h1 {
+      padding-top: 30px;
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .mentors-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    .mentor-card {
+      background: #fff;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease;
+    }
+
+    .mentor-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .mentor-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .mentor-header img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+    }
+
+    .mentor-info h3 {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+
+    .mentor-info p {
+      margin: 5px 0 0;
+      color: #777;
+      font-size: 0.9rem;
+    }
+
+    .mentor-rating {
+      margin-top: 10px;
+      color: #f4b400;
+      font-weight: 600;
+    }
+
+    .mentor-card button {
+      margin-top: 15px;
+      width: 100%;
+      padding: 10px;
+      border: none;
+      background-color: #007bff;
+      color: #fff;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .mentor-card button:hover {
+      background-color: #005ec9;
+      transform: translateY(-3px);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <div class="logo" id="logo">
+      <h3 class="main-b">SkillSync</h3>
+    </div>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="#">Explore</a></li>
+      <li><a href="/mentors">Mentors</a></li>
+      <li><a href="#">Community</a></li>
+      <li><a href="#">Dashboard</a></li>
+      <li><a href="#">1:1 Connect</a></li>
+    </ul>
+    <div class="auth">
+      {% if user %}
+      <div class="profile-dropdown">
+        <img src="https://randomuser.me/api/portraits/men/1.jpg" class="profile-icon" />
+        <span class="username">{{ user.firstName }}</span>
+        <div class="dropdown-menu">
+          <a href="#">Dashboard</a>
+          <a href="/logout">Log Out</a>
+        </div>
+      </div>
+      {% else %}
+      <button class="btn signin-btn animatioin" onclick="window.location.href='/login'">Sign In</button>
+      <button class="btn signup-btn animatioin" onclick="window.location.href='/login'">Sign Up</button>
+      {% endif %}
+    </div>
+  </nav>
+
+  <!-- ===== FILTER BAR ===== -->
+  <div class="filter-bar">
+    <div class="filter-option">Mentorship</div>
+    <div class="filter-option">Sort By</div>
+    <div class="filter-option">Filters ⚙</div>
+    <div class="filter-option">Skills</div>
+    <div class="filter-option">Service</div>
+    <div class="filter-option">Availability</div>
+    <div class="filter-option">Top Mentors </div>
+    <div class="filter-option">Free Services </div>
+    <div class="filter-option">Mentor Match</div>
+  </div>
+
+  <!-- ===== HERO HEADER ===== -->
+  <h1>Find Your Perfect Mentor 🚀</h1>
+
+  <!-- ===== MENTORS GRID ===== -->
+  <div class="mentors-list">
+    {% for mentor in mentors %}
+    <div class="mentor-card">
+      <div class="mentor-header">
+        <img src="https://randomuser.me/api/portraits/men/{{ loop.index }}.jpg" alt="{{ mentor.name }}" />
+        <div class="mentor-info">
+          <h3>{{ mentor.name }}</h3>
+          <p>{{ mentor.role }}</p>
+        </div>
+      </div>
+      <div class="mentor-rating">⭐ {{ mentor.rating }}</div>
+      <button>View Profile</button>
+    </div>
+    {% endfor %}
+  </div>
+</body>
+</html>

@@ -436,3 +436,47 @@ body {
         height: 60vh;
     }
 }
+
+
+/*
+
+button animation */
+
+.animatioin {
+  position: relative;
+  background: linear-gradient(135deg, #007bff, #00d4ff);
+  color: #fff;
+  border: none;
+  padding: 12px 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Hover effect — lift + glow */
+.animatioin:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 212, 255, 0.4);
+}
+
+/* Optional pulse animation */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(0, 212, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 212, 255, 0);
+  }
+}
+
+/* Add a looping glow animation */
+.animatioin:focus {
+  animation: pulse 1.5s infinite;
+  outline: none;
+}
